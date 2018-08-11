@@ -1,0 +1,645 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+#include <ctype.h>
+
+#define N 100
+
+int gameAn(char a[3][3],int x,int y);                           // checks if the move made by human is valid
+void sunartisi(char a[3][3]);                                   // prints the board on the screen
+int winner(char a[3][3]);                                       // checks if there is a winner
+int strategy1and2(char a[3][3],char k,int q,int *c1,int *c2);   //the function is used either in order to put three O sumbols in a row or in order to prevent the openent to make three in a row
+int strategy3(char a[3][3],int *c1,int *c2);                    // checks if the center square is free
+int strategy4(char a[3][3],int *c1,int *c2);                    //the function is used either in order to put two O sumbols in a row
+int strategy5and6(char a[3][3],int e,int l,int *c1,int *c2);    //playes in a free square if none of the previous strategies can be made
+int draw(char a[3][3]);                                         //search the board for a draw
+
+
+struct pin
+{
+	char result[7];
+	int  duration;
+	int  moves;
+};
+
+enum {DEFEAT=-1,DRAW,WIN};
+struct pin pinakas[N];
+
+main()
+{
+	
+	float mo2,mo,sum=0,sum2=0;
+	char O,X,a[3][3],b,tab[3],answer[3];
+	int k=0,z,s,x,e,t=0,w,counter,elapsed_time,max_moves,max_dur,better_game=0,round=0,min_moves,min_dur,worst_game=0,x3,x2,c1=0,c2=0,i,j;
+	int total_wins=0,total_draws=0,total_defeats=0;
+	time_t start,stop;
+	do
+    {
+        elapsed_time=0;
+        time(&start);	
+        w=1;
+        counter=0;    //counts the round of each game
+        z=4;
+        for(i=0;i<3;i++)
+	    {
+	        for(j=0;j<3;j++)
+	  	    a[i][j]=' ';
+	    }
+	    srand(time(NULL));
+	    s=rand()%2;
+	    system("cls");
+	
+	    if(s==0)   // human plays first
+	    {
+		    do
+		    {
+				if(counter!=0)
+	    	    {
+	    		    printf("Your last valid choice (row,col): X( %d : %d )\n",x2,x3);
+	    		    printf("Computer  last  choice (row,col): O( %d : %d )\n",c1,c2);
+	    	    }
+		        do
+		        {
+     		        printf("Please enter a valid choice(row,col)\n");
+                    gets(tab);
+                    x2=atoi(&tab[0]);
+                    x3=atoi(&tab[2]);
+                    if(!(isdigit(tab[0])) ||!(isdigit(tab[2])) || !(isspace(tab[1])))
+            	    printf("The move is not valid.");
+                    else if(((isdigit(tab[0])) && (isdigit(tab[2])) && (isspace(tab[1]))) && (x2>3 || x3>3 || x2<0 || x3<0))
+		            printf("The numbers are out of range.");
+		            else
+		            w=gameAn(a,x2-1,x3-1);
+			    }while(x2>3 || x3>3 || x2<0 || x3<0 || !(isdigit(tab[0])) ||!(isdigit(tab[2])) || !(isspace(tab[1])) || w==1 );
+                if(counter!=0)
+                system("cls");
+                sunartisi(a);
+                z=draw(a);
+                if(z!=DRAW)
+                z=winner(a);
+                if(z!=WIN &&z!=DEFEAT &&z!=DRAW)
+			    {
+			        z=strategy1and2(a,'O',-1,&c1,&c2); // c1 and c2 are used in order to return computer's game
+		            if(z!=DEFEAT)
+		            {
+		                z=strategy1and2(a,'X',3,&c1,&c2);
+                        if(z!=3)
+                        {
+                            z=strategy3(a,&c1,&c2);
+                            if(z!=4)
+                            {
+			                    z=strategy4(a,&c1,&c2);
+                                if(z!=5)
+                                {
+                                    z=strategy5and6(a,0,2,&c1,&c2);
+                                    if(z!=6)
+                                    {
+                                        z=strategy5and6(a,1,1,&c1,&c2);
+                                    }
+                                }
+                            }   
+                        }
+                    }
+                    system("cls");
+                    sunartisi(a);
+                    z=winner(a);           
+                }
+                counter++;
+	        }while(counter<5 &&z!=WIN &&z!=DEFEAT &&z!=DRAW);
+	    }
+	
+	    else  //computer plays first
+	    {
+	        do
+	        {
+	            if(counter==0)
+	            {
+                    z=strategy3(a,&c1,&c2);
+                    c1=2;
+                    c2=2;
+                }
+	            if(counter>0)
+	            {
+	                z=strategy1and2(a,'O',-1,&c1,&c2);
+	                if(z!=DEFEAT)
+		            {
+		                z=strategy1and2(a,'X',3,&c1,&c2);
+                        if(z!=3)
+                        {
+                            z=strategy4(a,&c1,&c2);
+                            if(z!=5)
+                            {
+                                z=strategy5and6(a,0,2,&c1,&c2);
+                                if(z!=6)
+                                {
+                                    z=strategy5and6(a,1,1,&c1,&c2);
+                                }
+                            }
+                        }
+                    }
+                 
+                }
+                if(counter!=0)
+                {
+                    system("cls");
+	    		    printf("Your last valid choice (row,col): X( %d : %d )\n",x2,x3);
+	    		    printf("Computer  last  choice (row,col): O( %d : %d )\n",c1,c2);
+	    	    }
+                sunartisi(a);
+                z=draw(a);
+                if(z!=DRAW)
+                z=winner(a);
+                if(counter!=4 &&z!=DEFEAT)
+                {
+                	do
+		            {
+     		            printf("Please enter a valid choice(row,col)\n");
+                        gets(tab);
+                        x2=atoi(&tab[0]);
+                        x3=atoi(&tab[2]);
+                        if(!(isdigit(tab[0])) ||!(isdigit(tab[2])) || !(isspace(tab[1])))
+            	        printf("The move is not valid.");
+                        else if(((isdigit(tab[0])) && (isdigit(tab[2])) && (isspace(tab[1]))) && (x2>3 || x3>3 || x2<0 || x3<0))
+		                printf("The numbers are out of range.");
+		                else
+		                w=gameAn(a,x2-1,x3-1);
+			        }while(x2>3 || x3>3 || x2<0 || x3<0 || !(isdigit(tab[0])) ||!(isdigit(tab[2])) || !(isspace(tab[1])) || w==1 );
+                    system("cls");
+                    sunartisi(a);
+                    z=winner(a);
+                }
+                counter++;
+	        }while(counter<5 &&z!=WIN &&z!=DEFEAT &&z!=DRAW);
+	    }
+	    time(&stop);
+	    // with the three 'if' below the computer store the result of each game in the struct pin pinakas
+	    if(z==WIN)
+	    {
+            total_wins ++;
+            strcpy(pinakas[t].result,"WIN");
+            elapsed_time =difftime(stop,start);
+            pinakas[t].duration=elapsed_time;
+            pinakas[t].moves=counter;
+        }
+        if(z==DRAW)
+        {
+            total_draws ++;
+            strcpy(pinakas[t].result,"DRAW");
+            elapsed_time =difftime(stop,start);
+            pinakas[t].duration=elapsed_time;
+            pinakas[t].moves=counter;
+        }
+        if(z==DEFEAT)
+        {
+         	total_defeats ++;
+            strcpy(pinakas[t].result,"DEFEAT");
+            elapsed_time = difftime(stop,start);
+            pinakas[t].duration=elapsed_time;
+            if(s==1)
+            pinakas[t].moves=counter-1;
+            else
+            pinakas[t].moves=counter;
+        }
+        t++;      // counts how many games have been played
+        b='\0';
+        if(t==N+1) //check if this is the final game that it can be stored
+        {
+        	do
+        	{
+        	    printf("This is the final game that it can be stored.Press enter to see the stats\n");
+        	    scanf("%c",&b);
+        	    fflush(stdin);
+        	}while(b!='\n');
+        }
+        else
+		{
+            do
+ 	        {
+                printf("Would you like to play another game?\nType yes or no ");
+	            scanf("%s",answer);
+                fflush(stdin);
+	            if(answer[0]=='y' || answer[0]=='Y')
+	            {
+		            if(answer[1]=='e' || answer[1]=='E')
+		            {
+			            if(answer[2]=='s' || answer[2]=='S')
+			            b='y';
+		            }
+	            }
+	            else if(answer[0]=='n' || answer[0]=='N')
+                {
+		            if(answer[1]=='o' || answer[1]=='O')
+		            {
+			            if(answer[2]=='\0' || answer[2]==' ')
+		                b='n';
+   		            }
+	           }
+               if(b!='y' && b!='n')
+               printf("wrong input\n");
+            }while(b!='y' && b!='n');
+        }
+    }while(b=='y' && t<N+1);
+
+    printf("This game's stats:\n");
+    printf("The result: %s\nThe duration of this game: %d seconds\nThe moves played by you: %d\n ",pinakas[t-1].result,pinakas[t-1].duration,pinakas[t-1].moves);
+    printf("\nSTATS FOR EACH GAME:\n");
+    for(k=0;k<t;k++)
+    {
+        printf("\nGAME %d\n",k+1);
+        printf("RESULT: %s\n",pinakas[k].result);
+        printf("DURATION: %d seconds \n",pinakas[k].duration);
+        printf("MOVES MADE BY YOU: %d\n",pinakas[k].moves);
+    }
+	
+	for(int i=0; i<t; i++)
+    {
+		sum = sum + pinakas[i].duration;
+		sum2= sum2 + pinakas[i].moves;
+    }
+    mo =  sum / t;
+    mo2=  sum2 / t;
+    printf("\n TOTAL STATS FOR ALL GAMES:\n");
+    printf("TOTAL WINS   : %d\n",total_wins);
+    printf("TOTAL DEFEATS: %d\n",total_defeats);
+    printf("TOTAL DRAWS  : %d\n",total_draws);
+    printf("The average duration of the games: %.3f seconds\n",mo);
+    printf("The average moves of the games: %.3f\n",mo2);
+    if(total_wins==0)
+    {
+  	    printf("Since there are no wins, there 's not a better game\n");
+    }
+    if(total_defeats==0)
+    {
+  	    printf("Since there are no defeats, there 's not a worst game\n");
+    }
+    round=0;
+    if(total_defeats!=0)
+    {
+  	    for(int i=0;i<t;i++)
+  	    {
+  		    if(strcmp(pinakas[i].result,"DEFEAT")==0)
+  		    {    
+  			     if(round==0)
+			     {
+  			         max_moves=pinakas[i].moves;
+  			         max_dur=pinakas[i].duration;
+  			         worst_game=i+1;
+  			         round++;
+  			     }   
+  	        	 if(pinakas[i].moves <max_moves)
+  	     	     {
+  		             max_moves=pinakas[i].moves;
+  		             worst_game=i+1;
+  		             max_dur=pinakas[i].duration;
+	     	     } 	
+	     	     if(pinakas[i].moves==max_moves)
+	     	     {
+	     		     if(pinakas[i].duration<max_dur)
+	     		     {
+	     		  	     worst_game=i+1;
+	     			     max_dur=pinakas[i].duration;
+	                 }
+	     	     }   
+		     }    
+          }
+  	      printf("\nThe worst game with the least moves and the minimum duration is the %dst one\n",worst_game);
+  	      for(int j=worst_game;j<t;j++)
+  	      {
+  		      if(pinakas[j].moves==max_moves &&pinakas[j].duration==max_dur)
+  	 	      { 
+  			      printf("but also the %dst one\n",j+1);
+  		      }
+  		
+  	      }
+    }
+    round=0;
+  	if(total_wins!=0)
+	  {
+  		for(int i=0;i<t;i++)
+  	    {	
+  		    if(strcmp(pinakas[i].result,"WIN")==0)
+  		    {
+  			    if(round==0)
+			    {
+  			        min_moves=pinakas[i].moves;
+  			        min_dur=pinakas[i].duration;
+  			        better_game=i+1;
+  			        round++;
+  			    }
+  	    	    if(pinakas[i].moves<min_moves)
+  		        {
+  		            min_moves=pinakas[i].moves;
+  		            better_game=i+1;
+  		            min_dur=pinakas[i].duration;
+	     	    }	
+	     	    if(pinakas[i].moves==min_moves)
+	     	    {
+	     		    if(pinakas[i].duration<min_dur)
+	     		    {
+	     			    better_game=i+1;
+	     			    min_dur=pinakas[i].duration;
+	     		     }
+	     	     }
+		     }
+  	     }
+  	    printf("\nThe best game with the least moves and the least duration is the %dst one\n",better_game);
+  	    for(int j=better_game;j<t;j++)
+  	    {
+  	    	if(pinakas[j].moves==min_moves &&pinakas[j].duration==min_dur)
+  		    {
+  		        printf("but also the %dst one\n",j+1);
+  		    }
+  		
+  	    }
+  	
+      }
+  system("pause");
+}
+int gameAn(char a[3][3],int x,int y)
+{
+	char X,O;
+	
+    if(a[x][y]==' ')
+	{
+       	a[x][y]='X';
+        return(0);
+    }
+    else 
+    {
+        printf("Give another numbers because this box is occupied\n");
+        return(1);
+    }
+}
+void sunartisi(char a[3][3])
+{
+	char X,O;
+	printf("        *        *        *      \n");
+	printf("  %c     *  %c     *  %c     *      \n",a[0][0],a[0][1],a[0][2]);
+	printf("        *        *        *      \n");
+	printf("****************************      \n");
+	printf("        *        *        *      \n");
+	printf("  %c     *  %c     *   %c    *      \n",a[1][0],a[1][1],a[1][2]);
+	printf("        *        *        *      \n");
+	printf("****************************      \n");
+	printf("        *        *        *      \n");
+	printf("  %c     *   %c    *   %c    *      \n",a[2][0],a[2][1],a[2][2]);
+	printf("        *        *        *      \n");
+}
+int strategy1and2(char a[3][3],char k,int q,int *c1,int *c2)
+{
+    char X,O;
+    int i,j;
+	if(a[1][1]==k)  // checks the crosses
+    {
+	    if(a[0][0]==k &&a[2][2]==' ')
+	    {
+	    	*c1=3;
+	    	*c2=3;
+		    a[2][2]='O';
+	        return(q);
+	    }
+	    if(a[0][0]==' ' &&a[2][2]==k)
+	    {
+	    	*c1=1;
+	    	*c2=1;
+		    a[0][0]='O';
+	        return(q);
+	    }
+	    if(a[0][2]==k &&a[2][0]==' ')
+	    {
+	    	*c1=3;
+	    	*c2=1;
+		    a[2][0]='O';
+	        return(q);
+	    }
+	    if(a[0][2]==' ' &&a[2][0]==k)
+	    {
+	    	*c1=1;
+	    	*c2=3;
+		    a[0][2]='O';
+	        return(q);
+	    }
+    }
+    for(i=0,j=0;i<3;i++)
+    {
+    	if(a[i][j]==k && a[i][j+2]==k && a[i][j+1]==' ')  //checks horizontal
+	    {
+	    	*c1=i+1;
+	    	*c2=j+2;
+		    a[i][j+1]='O';
+		    return(q);
+	    }
+	    else if(a[i][j]==k && a[i][j+1]==k &&a[i][j+2]==' ')  
+	    {
+	    	*c1=i+1;
+	    	*c2=j+3;
+		    a[i][j+2]='O';
+		    return(q);
+	    }	
+	    else if(a[i][j]==' ' && a[i][j+2]==k &&a[i][j+1]==k)  
+	    {
+	    	*c1=i+1;
+	    	*c2=j+1;
+		    a[i][j]='O';
+		    return(q);
+	    }
+	
+    }
+    for(i=0,j=0;j<3;j++)
+    {
+	    if(a[i][j]==k && a[i+2][j]==k &&a[i+1][j]==' ')  //checks vertically
+	    {
+	    	*c1=i+2;
+	    	*c2=j+1;
+		    a[i+1][j]='O';
+		    return(q);
+	    }
+	    else if(a[i][j]==k && a[i+1][j]==k &&a[i+2][j]==' ')  
+	    {
+	    	*c1=i+3;
+	    	*c2=j+1;
+		    a[i+2][j]='O';
+		    return(q);
+	    }	
+	    else if(a[i][j]==' ' && a[i+2][j]==k &&a[i+1][j]==k)  
+	    {
+	    	*c1=i+1;
+	    	*c2=j+1;
+		    a[i][j]='O';
+		    return(q);
+    	}	
+    }
+	return(2);    
+}
+int winner(char a[3][3])
+{
+	char X,O;
+	int i,j;
+	for(i=0;i<3;i++)  //checks if there are three in a row, horizontally
+	{
+	       if (a[i][0]=='X' && a[i][1]=='X' && a[i][2]=='X')
+	        {
+	         	printf("YOU WON\n");
+	        	return(1); 
+	        	
+         	}
+           
+	        else if (a[i][0]=='O' && a[i][1]=='O' && a[i][2]=='O')
+	        {
+	         	printf("COMPUTER WON\n");
+	        	return(-1);
+         	}
+    }
+    for(i=0;i<3;i++)    //checks if there are three in a row, vertically
+    {
+    	   if (a[0][i]=='X' && a[1][i]=='X' && a[2][i]=='X')
+	        {
+	         	printf("YOU WON\n");
+	        	return(1);
+         	}
+           
+	        else if (a[0][i]=='O' && a[1][i]=='O' && a[2][i]=='O')
+	        {
+	         	printf("COMPUTER WON\n");
+	        	return(-1);
+         	}
+    }
+    if((a[0][0]=='X' && a[1][1]=='X' && a[2][2]=='X') || (a[2][0]=='X' && a[1][1]=='X' && a[0][2]=='X')) //checks the crosses
+    {
+    	printf("YOU WON\n");
+    	return(1);
+    }
+    if((a[0][0]=='O' && a[1][1]=='O' && a[2][2]=='O') || (a[2][0]=='O' && a[1][1]=='O' && a[0][2]=='O'))
+    {
+    	printf("COMPUTER WON\n");
+    	return(-1);
+    }
+    else
+    return(2);
+}
+int strategy3(char a[3][3],int *c1,int *c2) 
+{
+    
+	if (a[1][1]==' ')
+    {
+    	*c1=2;
+	    *c2=2;
+    	a[1][1]='O';
+    	return(4);
+    }
+}
+int strategy4(char a[3][3],int *c1,int *c2)
+{
+	int i,j;
+	if(a[1][1]=='O')             // checks the crosses
+    {
+	    if(a[0][0]==' ')
+	    {
+	    	*c1=1;
+	        *c2=1;
+		    a[0][0]='O';
+		    return(5);
+	    }
+	    if(a[0][2]==' ')
+	    {
+	    	*c1=1;
+	        *c2=3;
+		    a[0][2]='O';
+		    return(5);
+ 	    }
+	    if(a[2][0]==' ')
+     	{
+     		*c1=3;
+	        *c2=1;
+	    	a[2][0]='O';
+	    	return(5);
+	    }
+	    if(a[2][2]==' ')
+  	    {
+  	    	*c1=3;
+	        *c2=3;
+		    a[2][2]='O';
+		    return(5);
+	    }
+    } 
+    for(i=0,j=0;i<2;++i)      // checks vertically
+    {
+        if(a[i][j]=='O' &&a[i+1][j]==' ')
+	    {
+	    	*c1=i+2;
+	        *c2=j+1;
+		    a[i+1][j]='O';
+		    return(5);
+	    }
+    }
+    for(i=2,j=0;i>0;--i)
+    {
+	    if(a[i][j]=='O' &&a[i-1][j]==' ')
+	    {
+		    *c1=i;
+	        *c2=j+1;    
+		    a[i-1][j]='O';
+		    return(5);
+     	}
+    }
+    for(i=2,j=0;i>0;--i)  //checks horizontally
+    {
+	    if(a[i][j]=='O' &&a[i][j-1]==' ')
+	    {
+	    	*c1=i+1;
+	        *c2=j;
+		    a[i][j-1]='O';
+		    return(5);
+	    }
+    }
+    for(i=0,j=0;j<2;++j)
+    { 
+	    if(a[i][j]=='O' &&a[i][j+1]==' ')
+	    {
+	    	*c1=i+1;
+	        *c2=j+2;
+		    a[i][j+1]='O';
+		    return(5);
+	    }
+    }  
+}
+int strategy5and6(char a[3][3],int e,int l,int *c1,int *c2)
+{
+	int i,j;
+	for(i=0,j=e;i<3;i+=2)
+    {
+	    if(a[i][j]==' ')
+	    {
+	    	*c1=i+1;
+	        *c2=j+1;
+		    a[i][j]='O';
+		    return(6);
+	    }
+    }
+    for(i=l,j=0;j<3;j+=2)
+    {
+	    if(a[i][j]==' ')
+	    {
+	    	*c1=i+1;
+	        *c2=j+1;
+		    a[i][j]='O';
+		    return(6);
+	    }
+    }
+    return(5);
+}
+int draw(char a[3][3])
+{
+	int i,j;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(a[i][j]==' ')    //checks if there is an empty square
+			return(2);
+		}
+	}
+    printf("The game is draw\n");  //if the computer doesn't find an empty square,then the game is a draw
+    return(0);
+}

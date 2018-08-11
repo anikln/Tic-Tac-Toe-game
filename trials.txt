@@ -1,0 +1,539 @@
+.LOG
+
+1.Check if not valid moves made by human are accepted(human plays first)
+
+Please enter a valid choice(row,col)
+3 r
+The move is not valid.Please enter a valid choice(row,col)
+rr
+The move is not valid.Please enter a valid choice(row,col)
+rtgg
+The move is not valid.Please enter a valid choice(row,col)
+45
+The move is not valid.Please enter a valid choice(row,col)
+4 5
+The numbers are out of range.Please enter a valid choice(row,col)
+3 4
+The numbers are out of range.Please enter a valid choice(row,col)
+
+2.Check if not valid moves made by human are accepted(computer plays first)
+
+        *        *        *
+        *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *        *        *
+        *        *        *
+Please enter a valid choice(row,col)
+ו ס
+The move is not valid.Please enter a valid choice(row,col)
+rr
+The move is not valid.Please enter a valid choice(row,col)
+3 4
+The numbers are out of range.Please enter a valid choice(row,col)
+5 6
+The numbers are out of range.Please enter a valid choice(row,col)
+2 2
+Give another numbers because this box is occupied
+Please enter a valid choice(row,col)
+rtg
+The move is not valid.Please enter a valid choice(row,col)
+
+3.Computer won by making horizontically three in a row(computer plays first)
+
+Your last valid choice (row,col): X( 3 : 1 )
+Computer  last  choice (row,col): O( 1 : 2 )
+        *        *        *
+  O     *  O     *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  X     *        *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+4.Computer won by making  in the cross three in a row (computer plays first)
+
+Your last valid choice (row,col): X( 1 : 2 )
+Computer  last  choice (row,col): O( 3 : 1 )
+        *        *        *
+  O     *  X     *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  O     *        *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+5.Computer won by making vertically three in a row(computer plays first)
+Your last valid choice (row,col): X( 2 : 3 )
+Computer  last  choice (row,col): O( 1 : 2 )
+        *        *        *
+  O     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+6.Draw (computer plays first)
+
+Your last valid choice (row,col): X( 2 : 3 )
+Computer  last  choice (row,col): O( 2 : 1 )
+        *        *        *
+  O     *  X     *  O     *
+        *        *        *
+****************************
+        *        *        *
+  O     *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+The game is draw
+Would you like to play another game?
+Type yes or no
+
+7.Human won by making vertically three in a row(human plays first)
+
+        *        *        *
+  X     *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+YOU WON
+Would you like to play another game?
+Type yes or no
+
+12:34 לל 20/5/2014
+
+8.Draw(human plays first)
+
+        *        *        *
+  O     *  X     *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+The game is draw
+Would you like to play another game?
+Type yes or no
+
+12:36 לל 20/5/2014
+
+9.Computer won by making vertically three in a row(human plays first) 
+
+        *        *        *
+        *  O     *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+10.Computer won by making  in the cross three in a row(human plays first)
+
+        *        *        *
+        *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+11.Computer won by making horizontically three in a row(human plays first)
+
+        *        *        *
+        *        *  X     *
+        *        *        *
+****************************
+        *        *        *
+  O     *  O     *   O    *
+        *        *        *
+****************************
+        *        *        *
+        *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no
+
+12.Check if not valid answers are accepted(human plays first)
+
+        *        *        *
+        *        *  X     *
+        *        *        *
+****************************
+        *        *        *
+  O     *  O     *   O    *
+        *        *        *
+****************************
+        *        *        *
+        *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no jffgdfgdf
+wrong input
+Would you like to play another game?
+Type yes or no sds
+wrong input
+Would you like to play another game?
+Type yes or no 34
+wrong input
+Would you like to play another game?
+Type yes or no
+
+13.Check if not valid answers are accepted(computer plays first)
+Your last valid choice (row,col): X( 2 : 3 )
+Computer  last  choice (row,col): O( 1 : 3 )
+        *        *        *
+  O     *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no gfgdfg
+wrong input
+Would you like to play another game?
+Type yes or no gfgds
+wrong input
+Would you like to play another game?
+Type yes or no 44
+wrong input
+Would you like to play another game?
+Type yes or no
+
+14.Check if the stats are working
+
+Your last valid choice (row,col): X( 2 : 1 )
+Computer  last  choice (row,col): O( 1 : 3 )
+        *        *        *
+  O     *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Would you like to play another game?
+Type yes or no no
+This game's stats:
+The result: DEFEAT
+The duration of this game: 8 seconds
+The moves played by you: 3
+
+STATS FOR EACH GAME:
+
+GAME 1
+RESULT: DEFEAT
+DURATION: 15 seconds
+MOVES MADE BY YOU: 3
+
+GAME 2
+RESULT: DEFEAT
+DURATION: 11 seconds
+MOVES MADE BY YOU: 3
+
+GAME 3
+RESULT: DEFEAT
+DURATION: 68 seconds
+MOVES MADE BY YOU: 3
+
+GAME 4
+RESULT: DRAW
+DURATION: 15 seconds
+MOVES MADE BY YOU: 5
+
+GAME 5
+RESULT: DRAW
+DURATION: 14 seconds
+MOVES MADE BY YOU: 5
+
+GAME 6
+RESULT: DEFEAT
+DURATION: 8 seconds
+MOVES MADE BY YOU: 2
+
+GAME 7
+RESULT: DEFEAT
+DURATION: 8 seconds
+MOVES MADE BY YOU: 3
+
+ TOTAL STATS FOR ALL GAMES:
+TOTAL WINS   : 0
+TOTAL DEFEATS: 5
+TOTAL DRAWS  : 2
+The average duration of the games: 19.857 seconds
+The average moves of the games: 3.429
+Since there are no wins, there 's not a better game
+
+The worst game with the least moves and the minimum duration is the 6st one
+Press any key to continue . . .
+
+15.Check if the stats are working(case with equal number of moves and duration)
+
+        *        *        *
+  X     *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+  X     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  X     *   O    *   X    *
+        *        *        *
+YOU WON
+Would you like to play another game?
+Type yes or no no
+This game's stats:
+The result: WIN
+The duration of this game: 4 seconds
+The moves played by you: 4
+
+STATS FOR EACH GAME:
+
+GAME 1
+RESULT: DEFEAT
+DURATION: 5 seconds
+MOVES MADE BY YOU: 3
+
+GAME 2
+RESULT: WIN
+DURATION: 4 seconds
+MOVES MADE BY YOU: 4
+
+GAME 3
+RESULT: WIN
+DURATION: 4 seconds
+MOVES MADE BY YOU: 4
+
+ TOTAL STATS FOR ALL GAMES:
+TOTAL WINS   : 2
+TOTAL DEFEATS: 1
+TOTAL DRAWS  : 0
+The average duration of the games: 4.333 seconds
+The average moves of the games: 3.667
+
+The worst game with the least moves and the minimum duration is the 1st one
+
+The best game with the least moves and the least duration is the 2st one
+but also the 3st one
+Press any key to continue . . .
+10:43 לל 22/5/2014
+
+16.Check if the game warns the player that it can not store any more games(test with the maximum number of games that it can be stored three)
+Your last valid choice (row,col): X( 2 : 3 )
+Computer  last  choice (row,col): O( 1 : 3 )
+        *        *        *
+  O     *        *  O     *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *   X    *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+COMPUTER WON
+This is the final game that it can be stored.Press enter to see the stats
+
+This game's stats:
+The result: DEFEAT
+The duration of this game: 4 seconds
+The moves played by you: 3
+
+STATS FOR EACH GAME:
+
+GAME 1
+RESULT: DEFEAT
+DURATION: 3 seconds
+MOVES MADE BY YOU: 3
+
+GAME 2
+RESULT: DEFEAT
+DURATION: 2 seconds
+MOVES MADE BY YOU: 3
+
+GAME 3
+RESULT: DEFEAT
+DURATION: 4 seconds
+MOVES MADE BY YOU: 3
+
+ TOTAL STATS FOR ALL GAMES:
+TOTAL WINS   : 0
+TOTAL DEFEATS: 3
+TOTAL DRAWS  : 0
+The average duration of the games: 3.000 seconds
+The average moves of the games: 3.000
+Since there are no wins, there 's not a better game
+
+The worst game with the least moves and the minimum duration is the 2st one
+Press any key to continue . . .
+
+10:10 נל 25/5/2014
+
+17.Game without system clear
+
+        *        *        *
+        *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *        *        *
+        *        *        *
+Please enter a valid choice(row,col)
+3 3
+
+        *        *        *
+        *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *        *   X    *
+        *        *        *
+
+        *        *        *
+  O     *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *        *   X    *
+        *        *        *
+Your last valid choice (row,col): X( 3 : 3 )
+Computer  last  choice (row,col): O( 1 : 1 )
+Please enter a valid choice(row,col)
+3 2
+
+        *        *        *
+  O     *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+        *   X    *   X    *
+        *        *        *
+
+        *        *        *
+  O     *        *        *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+Your last valid choice (row,col): X( 3 : 2 )
+Computer  last  choice (row,col): O( 3 : 1 )
+Please enter a valid choice(row,col)
+1 3
+
+        *        *        *
+  O     *        *  X     *
+        *        *        *
+****************************
+        *        *        *
+        *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+
+        *        *        *
+  O     *        *  X     *
+        *        *        *
+****************************
+        *        *        *
+  O     *  O     *        *
+        *        *        *
+****************************
+        *        *        *
+  O     *   X    *   X    *
+        *        *        *
+COMPUTER WON
+Your last valid choice (row,col): X( 1 : 3 )
+Computer  last  choice (row,col): O( 2 : 1 )
+Would you like to play another game?
+Type yes or no
+
